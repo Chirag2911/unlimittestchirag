@@ -4,10 +4,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 @Parcelize
-data class RecipeData(val items: List<Items>) :Parcelable{
-
-    @Parcelize
-    data class Items(
+data class RecipeData(
         @SerializedName("calories") var calories: String?,
         @SerializedName("carbos") var carbos: String?,
         @SerializedName("card") var card: String?,
@@ -46,7 +43,6 @@ data class RecipeData(val items: List<Items>) :Parcelable{
     ) : Parcelable
 
 
-}
 
 
 

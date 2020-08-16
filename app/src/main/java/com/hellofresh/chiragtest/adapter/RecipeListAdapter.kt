@@ -1,5 +1,6 @@
 package com.hellofresh.chiragtest.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,12 @@ import com.hellofresh.chiragtest.model.RecipeData
 import kotlinx.android.synthetic.main.item_recepie_layout.view.*
 import java.lang.StringBuilder
 
-class RecipeListAdapter(var recipeList: List<RecipeData.Items>) :
+class RecipeListAdapter(var recipeList: List<RecipeData>,context: OnClickRecipeItem) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var onClickRecipe:OnClickRecipeItem?=null
+    init {
+        onClickRecipe=context
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -28,10 +33,13 @@ class RecipeListAdapter(var recipeList: List<RecipeData.Items>) :
 
     private fun setDataOnList(
         holder: RecyclerView.ViewHolder,
-        repoDto: RecipeData.Items?
+        repoDto: RecipeData?
     ) {
+        holder.itemView.setOnClickListener {
+            onClickRecipe?.onClick(repoDto)
+        }
         repoDto?.apply {
-            image.let {
+            thumb.let {
                 Glide.with(holder.itemView)
                     .load(it)
                     .centerCrop()
@@ -64,13 +72,17 @@ class RecipeListAdapter(var recipeList: List<RecipeData.Items>) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    fun dataSetChanged(newValues: List<RecipeData.Items>) {
+    fun dataSetChanged(newValues: List<RecipeData>) {
         recipeList = newValues
         notifyDataSetChanged()
     }
 
     fun changeTimeFormatIntoTime(time: String?): String {
         return time?.replace("[^0-9]+".toRegex(), " ")+"Min"
+    }
+
+    interface OnClickRecipeItem{
+        fun onClick(repoDto:RecipeData?)
     }
 
 }

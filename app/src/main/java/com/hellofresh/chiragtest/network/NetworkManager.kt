@@ -21,7 +21,7 @@ class NetworkManager {
         service = retrofit.create(NetworkRequest::class.java)
     }
 
-    suspend fun getRepositories(): List<RecipeData.Items> {
+    suspend fun getRepositories(): List<RecipeData> {
         return service.retrieveRepositories()
 
     }

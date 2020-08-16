@@ -8,7 +8,7 @@ import com.hellofresh.chiragtest.network.NetworkManager
 import kotlinx.coroutines.*
 
 class RecipeViewModel : ViewModel() {
-    val recipeMutableLiveData = MutableLiveData<CallResponseStatus<List<RecipeData.Items>>>()
+    val recipeMutableLiveData = MutableLiveData<CallResponseStatus<List<RecipeData>>>()
     var mainActivityJob :Job?= null
 
     fun getRecipeList() {

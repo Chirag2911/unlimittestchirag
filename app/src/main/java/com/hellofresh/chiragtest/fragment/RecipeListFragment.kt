@@ -1,5 +1,6 @@
 package com.hellofresh.chiragtest.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hellofresh.chiragtest.MainActivity
 import com.hellofresh.chiragtest.R
+import com.hellofresh.chiragtest.`interface`.LaunchFragmentInterface
 import com.hellofresh.chiragtest.adapter.RecipeListAdapter
 import com.hellofresh.chiragtest.model.RecipeData
 import com.hellofresh.chiragtest.network.CallResponseStatus
 import com.hellofresh.chiragtest.viewmodel.RecipeViewModel
 import kotlinx.android.synthetic.main.fragment_recipie_list.*
 
-class RecipeListFragment:Fragment() {
+class RecipeListFragment:Fragment() ,RecipeListAdapter.OnClickRecipeItem{
     private var recipeListAdapter:RecipeListAdapter?=null
-    private var arrayList=ArrayList<RecipeData.Items>()
+    private var arrayList=ArrayList<RecipeData>()
     private var recipeViewModel:RecipeViewModel?=null
+    private var launchFragmentInterface:LaunchFragmentInterface?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,12 +41,19 @@ class RecipeListFragment:Fragment() {
         retrieveRepositories()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+      if( context is LaunchFragmentInterface){
+          launchFragmentInterface=context
+      }
+    }
+
     private fun bindView() {
         setRecipeObserver()
     }
 
     private fun setRecipeObserver() {
-        recipeViewModel?.recipeMutableLiveData?.observe(viewLifecycleOwner, Observer<CallResponseStatus<List<RecipeData.Items>>> {
+        recipeViewModel?.recipeMutableLiveData?.observe(viewLifecycleOwner, Observer<CallResponseStatus<List<RecipeData>>> {
             it?.let { output->
                 when(output.status){
                     CallResponseStatus.Status.SUCCESS->{
@@ -62,7 +73,7 @@ class RecipeListFragment:Fragment() {
         })
     }
 
-    private fun setErrorMessage(it: CallResponseStatus<List<RecipeData.Items>>?) {
+    private fun setErrorMessage(it: CallResponseStatus<List<RecipeData>>?) {
         activity?.let { it1 ->
             AlertDialog.Builder(it1).setTitle(R.string.error)
                 .setMessage(it?.message)
@@ -71,14 +82,14 @@ class RecipeListFragment:Fragment() {
         }
     }
 
-    private fun setAdapter(it: List<RecipeData.Items>) {
+    private fun setAdapter(it: List<RecipeData>) {
         recipeListAdapter?.dataSetChanged(it)
 
     }
 
     private fun initView() {
         recipeViewModel=ViewModelProviders.of(this).get(RecipeViewModel::class.java)
-        recipeListAdapter= RecipeListAdapter(arrayList)
+        recipeListAdapter= RecipeListAdapter(arrayList,this)
         val linearLayoutManager=LinearLayoutManager(activity)
         listView.layoutManager=linearLayoutManager
         listView.adapter=recipeListAdapter
@@ -95,4 +106,9 @@ class RecipeListFragment:Fragment() {
 
     }
 
+    override fun onClick(repoDto: RecipeData?) {
+        val bundle=Bundle()
+        bundle.putParcelable(RecipeDetailFragment.KEY_RECIPE_DATA,repoDto)
+        launchFragmentInterface?.launchFragment(bundle,RecipeDetailFragment())
+    }
 }

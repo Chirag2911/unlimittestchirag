@@ -2,4 +2,10 @@
     <string name="app_name">HelloFreshTest</string>
     <string name="recipes">Recipes</string>
     <string name="error">Error</string>
+    <string name="preparation_time">Preparation time</string>
+    <string name="calories">Calories(kCal)</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="level">Level %1s</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="min">%1s min</string>
 </resources>
