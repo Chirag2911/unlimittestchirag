@@ -1,6 +1,7 @@
 package com.hellofresh.chiragtest.network
 
 import com.hellofresh.chiragtest.model.RecipeData
+import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -22,5 +23,6 @@ class NetworkManager {
 
     suspend fun getRepositories(): List<RecipeData.Items> {
         return service.retrieveRepositories()
+
     }
 }

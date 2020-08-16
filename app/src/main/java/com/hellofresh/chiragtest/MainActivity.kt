@@ -2,11 +2,8 @@ package com.hellofresh.chiragtest
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.hellofresh.chiragtest.fragment.RecipeListFragment
-import com.hellofresh.chiragtest.network.NetworkManager
-import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,21 +28,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    private  fun retrieveRepositories() {
-        val mainActivityJob = Job()
-        val errorHandler = CoroutineExceptionHandler { _, exception ->
-            AlertDialog.Builder(this).setTitle("Error")
-                .setMessage(exception.message)
-                .setPositiveButton(android.R.string.ok) { _, _ -> }
-                .setIcon(android.R.drawable.ic_dialog_alert).show()
-        }
-        val coroutineScope = CoroutineScope(mainActivityJob + Dispatchers.Main)
-        coroutineScope.launch(errorHandler) {
-            val resultList = NetworkManager().getRepositories()
-            System.out.println(resultList)
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
             android.R.id.home -> {
@@ -55,5 +37,7 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
 }

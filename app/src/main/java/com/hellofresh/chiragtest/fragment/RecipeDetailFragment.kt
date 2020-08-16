@@ -36,20 +36,7 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private  fun retrieveRepositories() {
-        val mainActivityJob = Job()
-        val errorHandler = CoroutineExceptionHandler { _, exception ->
-            activity?.let {
-                AlertDialog.Builder(it).setTitle("Error")
-                    .setMessage(exception.message)
-                    .setPositiveButton(android.R.string.ok) { _, _ -> }
-                    .setIcon(android.R.drawable.ic_dialog_alert).show()
-            }
-        }
-        val coroutineScope = CoroutineScope(mainActivityJob + Dispatchers.Main)
-        coroutineScope.launch(errorHandler) {
-            val resultList = NetworkManager().getRepositories()
-            recipeListAdapter?.dataSetChanged(resultList)
-        }
+
     }
 
 }

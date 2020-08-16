@@ -1,6 +1,7 @@
 package com.hellofresh.chiragtest.network
 
 import com.hellofresh.chiragtest.model.RecipeData
+import io.reactivex.Observable
 import retrofit2.http.GET
 
 interface NetworkRequest {
