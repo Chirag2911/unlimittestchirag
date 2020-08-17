@@ -2,7 +2,6 @@ package com.hellofresh.chiragtest.network
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 
 class NetworkMonitor(private val context:Context) {
 

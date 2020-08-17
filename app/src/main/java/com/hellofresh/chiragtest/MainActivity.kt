@@ -3,11 +3,10 @@ package com.hellofresh.chiragtest
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.hellofresh.chiragtest.`interface`.LaunchFragmentInterface
-import com.hellofresh.chiragtest.fragment.RecipeDetailFragment
+import com.hellofresh.chiragtest.interfaces.LaunchFragmentInterface
 import com.hellofresh.chiragtest.fragment.RecipeListFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), LaunchFragmentInterface {
@@ -20,10 +19,14 @@ class MainActivity : AppCompatActivity(), LaunchFragmentInterface {
     }
 
     private fun initView() {
-
+      setSupportActionBar(toolbar)
         supportActionBar?.title=getString(R.string.recipes)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        supportActionBar?.setDisplayShowHomeEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
+
+
     }
      override fun launchFragment(bundle: Bundle?,fragment: Fragment?) {
          val fragment1=   supportFragmentManager.findFragmentByTag(fragment?.javaClass?.simpleName)
@@ -38,6 +41,11 @@ class MainActivity : AppCompatActivity(), LaunchFragmentInterface {
             }
 
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

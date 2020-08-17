@@ -8,5 +8,6 @@
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp2">2dp</dimen>
     <dimen name="dp5">5dp</dimen>
+    <dimen name="dp60">60dp</dimen>
     <dimen name="dp200">200dp</dimen>
 </resources>

@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hellofresh.chiragtest.MainActivity
 import com.hellofresh.chiragtest.R
-import com.hellofresh.chiragtest.`interface`.LaunchFragmentInterface
+import com.hellofresh.chiragtest.interfaces.LaunchFragmentInterface
 import com.hellofresh.chiragtest.adapter.RecipeListAdapter
+import com.hellofresh.chiragtest.database.RecipeTable
 import com.hellofresh.chiragtest.model.RecipeData
 import com.hellofresh.chiragtest.network.CallResponseStatus
 import com.hellofresh.chiragtest.viewmodel.RecipeViewModel
@@ -22,9 +22,10 @@ import kotlinx.android.synthetic.main.fragment_recipie_list.*
 
 class RecipeListFragment:Fragment() ,RecipeListAdapter.OnClickRecipeItem{
     private var recipeListAdapter:RecipeListAdapter?=null
-    private var arrayList=ArrayList<RecipeData>()
+    private var recipeList=ArrayList<RecipeData>()
     private var recipeViewModel:RecipeViewModel?=null
     private var launchFragmentInterface:LaunchFragmentInterface?=null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,24 +60,36 @@ class RecipeListFragment:Fragment() ,RecipeListAdapter.OnClickRecipeItem{
                     CallResponseStatus.Status.SUCCESS->{
                         progressbar.visibility=View.GONE
                         it.data?.let {
-                            setAdapter(it)
-                        }
+                            recipeList= it as ArrayList<RecipeData>
+                            setFavStatusObserver()                        }
 
                     }
                     CallResponseStatus.Status.ERROR->{
                         progressbar.visibility=View.GONE
-                        setErrorMessage(it)
+                        setErrorMessage(it.message)
 
                     }
                 }
             }
         })
+
+
     }
 
-    private fun setErrorMessage(it: CallResponseStatus<List<RecipeData>>?) {
+    private fun setFavStatusObserver(){
+        recipeViewModel?.repository?.allRepos?.observe(viewLifecycleOwner, Observer<List<RecipeTable>> {
+            it?.let {
+                recipeList =getStatusFromDatabase(recipeList,it.associate { it.id to it.isFavourite } as HashMap<String, Boolean>)
+            }
+            setAdapter(recipeList)
+        })
+    }
+
+
+    private fun setErrorMessage(it: String?) {
         activity?.let { it1 ->
             AlertDialog.Builder(it1).setTitle(R.string.error)
-                .setMessage(it?.message)
+                .setMessage(it)
                 .setPositiveButton(android.R.string.ok) { _, _ -> activity?.finish()}
                 .setIcon(android.R.drawable.ic_dialog_alert).show()
         }
@@ -88,8 +101,9 @@ class RecipeListFragment:Fragment() ,RecipeListAdapter.OnClickRecipeItem{
     }
 
     private fun initView() {
+
         recipeViewModel=ViewModelProviders.of(this).get(RecipeViewModel::class.java)
-        recipeListAdapter= RecipeListAdapter(arrayList,this)
+        recipeListAdapter= RecipeListAdapter(recipeList,this)
         val linearLayoutManager=LinearLayoutManager(activity)
         listView.layoutManager=linearLayoutManager
         listView.adapter=recipeListAdapter
@@ -110,5 +124,17 @@ class RecipeListFragment:Fragment() ,RecipeListAdapter.OnClickRecipeItem{
         val bundle=Bundle()
         bundle.putParcelable(RecipeDetailFragment.KEY_RECIPE_DATA,repoDto)
         launchFragmentInterface?.launchFragment(bundle,RecipeDetailFragment())
+    }
+
+    fun getStatusFromDatabase(recipeDataList: List<RecipeData>,map: HashMap<String,Boolean>): ArrayList<RecipeData> {
+         for (data in recipeDataList){
+            if(map.containsKey(data.id)){
+                val favStatus=  map.get(data.id)
+                if (favStatus != null) {
+                    data.isFav=favStatus
+                }
+            }
+        }
+        return recipeDataList as ArrayList<RecipeData>
     }
 }

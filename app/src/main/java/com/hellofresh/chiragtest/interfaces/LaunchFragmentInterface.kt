@@ -1,4 +1,4 @@
-package com.hellofresh.chiragtest.`interface`
+package com.hellofresh.chiragtest.interfaces
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

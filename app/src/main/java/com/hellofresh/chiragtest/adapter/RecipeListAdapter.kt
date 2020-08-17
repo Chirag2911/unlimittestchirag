@@ -1,6 +1,5 @@
 package com.hellofresh.chiragtest.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,12 +56,23 @@ class RecipeListAdapter(var recipeList: List<RecipeData>,context: OnClickRecipeI
 
             calories?.let {
                 str?.append(it)
+                if(!calories.isNullOrEmpty())
+                str?.append(" |")
+
             }
             time.let {
-                str?.append(" |")
                 str?.append(changeTimeFormatIntoTime(it))
             }
             holder.itemView.recipe_highlight.text = str
+            isFav.let {
+                if(it){
+                   holder.itemView.favImage.setImageResource(R.drawable.ic_fav_check)
+                }else{
+                    holder.itemView.favImage.setImageResource(R.drawable.ic_like)
+
+                }
+            }
+
 
         }
 

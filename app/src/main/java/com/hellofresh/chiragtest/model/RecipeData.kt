@@ -22,7 +22,6 @@ data class RecipeData(
         @SerializedName("incompatibilities") var incompatibilities: String?,
         @SerializedName("ingredients") var ingredientList: ArrayList<String>?,
         @SerializedName("keywords") var keywordList: ArrayList<String>?,
-
         @SerializedName("name") var name: String?,
         @SerializedName("products") var productsList: ArrayList<String>?,
         @SerializedName("proteins") var proteins: String?,
@@ -32,8 +31,11 @@ data class RecipeData(
         @SerializedName("time") var time: String?,
         @SerializedName("undeliverable_ingredients") var unDeliverableIngredientList: ArrayList<String>?,
         @SerializedName("user") var userData: UserData?,
-        @SerializedName("weeks") var weeksList: ArrayList<String>?
-    ):Parcelable
+        @SerializedName("weeks") var weeksList: ArrayList<String>?,
+         var isFav: Boolean=false
+
+
+):Parcelable
 
     @Parcelize
     data class UserData(
