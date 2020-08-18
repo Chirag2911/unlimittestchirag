@@ -101,7 +101,6 @@ class RecipeListFragment:Fragment() ,RecipeListAdapter.OnClickRecipeItem{
     }
 
     private fun initView() {
-
         recipeViewModel=ViewModelProviders.of(this).get(RecipeViewModel::class.java)
         recipeListAdapter= RecipeListAdapter(recipeList,this)
         val linearLayoutManager=LinearLayoutManager(activity)

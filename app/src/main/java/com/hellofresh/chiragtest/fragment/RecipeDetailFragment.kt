@@ -1,13 +1,17 @@
 package com.hellofresh.chiragtest.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.hellofresh.chiragtest.LoginActivity
+import com.hellofresh.chiragtest.MainActivity
 import com.hellofresh.chiragtest.R
 import com.hellofresh.chiragtest.database.RecipeTable
 import com.hellofresh.chiragtest.model.RecipeData
+import com.hellofresh.chiragtest.preference.SharedPrefrenceUtil
 import com.hellofresh.chiragtest.viewmodel.RecipeViewModel
 import kotlinx.android.synthetic.main.fragment_recipe_details.*
 import kotlinx.android.synthetic.main.item_ingridient.view.*
@@ -18,7 +22,6 @@ class RecipeDetailFragment : Fragment() {
     private var recipeData: RecipeData? = null
     private var isFavBoolean=false
     private var recipeViewModel: RecipeViewModel?=null
-
 
     companion object {
         val KEY_RECIPE_DATA = "recipe_data"
@@ -41,6 +44,10 @@ class RecipeDetailFragment : Fragment() {
         recipeViewModel= ViewModelProviders.of(this).get(RecipeViewModel::class.java)
         recipeData = arguments?.get(KEY_RECIPE_DATA) as RecipeData
         recipeData?.let { bindView(recipeData) }
+        logout.setOnClickListener {
+            SharedPrefrenceUtil.logout()
+            navigateLogout()
+        }
 
     }
 
@@ -127,7 +134,12 @@ class RecipeDetailFragment : Fragment() {
     }
 
 
-
+    private fun navigateLogout() {
+        SharedPrefrenceUtil.logout()
+        val intent = Intent(activity, LoginActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
+    }
 
 
 

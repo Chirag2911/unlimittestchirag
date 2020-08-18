@@ -3,8 +3,6 @@ package com.hellofresh.chiragtest.network
 class CallResponseStatus<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
 
-        private const val defaultCode : String = "-1";
-
         fun <T> success(data: T?): CallResponseStatus<T>
         {
             return CallResponseStatus(Status.SUCCESS, data, null )

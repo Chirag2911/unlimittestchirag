@@ -1,8 +1,7 @@
 package com.hellofresh.chiragtest.network
-
-import com.hellofresh.chiragtest.database.RecipeTable
 import com.hellofresh.chiragtest.database.Repository
 import com.hellofresh.chiragtest.model.RecipeData
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,9 +15,11 @@ class NetworkManager {
     }
 
     init {
+        val oktHttpClient = OkHttpClient.Builder()
+            .addInterceptor(NetworkInterceptor())
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create()).client(oktHttpClient.build())
             .build()
         service = retrofit.create(NetworkRequest::class.java)
         repository = Repository()
@@ -28,4 +29,5 @@ class NetworkManager {
         val recipeDataList = service.retrieveRepositories()
         return recipeDataList
     }
+
 }
