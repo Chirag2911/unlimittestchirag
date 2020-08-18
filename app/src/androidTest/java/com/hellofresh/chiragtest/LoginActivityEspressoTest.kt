@@ -39,16 +39,18 @@ class LoginActivityEspressoTest {
         onView(withId(R.id.password)).perform(typeText("CHIRAG"), closeSoftKeyboard())
         onView(withId(R.id.password)).check(matches(not(withText("sjdnjksndk"))))
     }
+
     @Test
     fun verifyLoginButtonExist() {
         onView(withText(startsWith("Login"))).perform(click())
+
     }
 
     @Test
-    fun ensureLoginButtonIsEnabled(){
+    fun ensureLoginButtonIsEnabled() {
         onView(withId(R.id.login))
             .perform(click())
             .check(matches(isEnabled()))
     }
 
-    }
+}

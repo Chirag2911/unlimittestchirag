@@ -1,32 +1,60 @@
 package com.hellofresh.chiragtest
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.hellofresh.chiragtest.network.LoginValidatorStatus
 import com.hellofresh.chiragtest.preference.SharedPrefrenceUtil
+import com.hellofresh.chiragtest.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 
+
 class LoginActivity : AppCompatActivity() {
+    private var loginViewModel: LoginViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        if(SharedPrefrenceUtil.isUserLogin()){
+        if (SharedPrefrenceUtil.isUserLogin()) {
             navigateHomeFlow()
-        }else {
+        } else {
             initView()
             bindView()
         }
     }
 
     private fun bindView() {
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         login.setOnClickListener {
-            valdiateLoginFlow()
+            hideKeyboard(it)
+            loginViewModel?.validateLoginFlow(email.text.toString(), password.text.toString())
         }
+
+        loginViewModel?.validateLoginLiveData?.observe(this, Observer<LoginValidatorStatus> {
+            it?.let { output ->
+                when (output.status) {
+                    LoginValidatorStatus.Status.SUCCESS -> {
+                        navigateHomeFlow()
+                    }
+                    LoginValidatorStatus.Status.ERROR -> {
+                        Toast.makeText(
+                            this, output.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        })
+
     }
 
     private fun initView() {
@@ -35,48 +63,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
-
     }
-
-  private fun valdiateLoginFlow(){
-       if (email.text.toString().isEmpty()) {
-           Toast.makeText(this,resources.getString(R.string.email_empty_error),
-           Toast.LENGTH_SHORT
-           ).show()
-           return
-       }
-
-       val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})";
-           if(!EMAIL_REGEX.toRegex().matches(email.text.toString())){
-               Toast.makeText(this,resources.getString(R.string.email_valid_error),
-                   Toast.LENGTH_SHORT
-               ).show()
-               return
-           }
-      if(password.text.toString().isEmpty()){
-          Toast.makeText(this,resources.getString(R.string.pass_empty_error),
-              Toast.LENGTH_SHORT
-          ).show()
-          return
-      }
-      if(password.text.toString().length<=3){
-          Toast.makeText(this,resources.getString(R.string.pass_valid_error),
-              Toast.LENGTH_SHORT
-          ).show()
-          return
-      }
-
-      if(SharedPrefrenceUtil.getUserID().equals(email.text.toString()) &&
-          SharedPrefrenceUtil.getPassword().equals(password.text.toString())){
-             navigateHomeFlow()
-
-          }else{
-          Toast.makeText(this,resources.getString(R.string.please_enter_valid_credentia),
-              Toast.LENGTH_SHORT
-          ).show()
-      }
-          }
-
 
     private fun navigateHomeFlow() {
         SharedPrefrenceUtil.login()
@@ -84,7 +71,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -99,6 +85,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun hideKeyboard(v:View) {
+        val inputMethodManager: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0)
     }
 
 }

@@ -10,11 +10,12 @@ import com.hellofresh.chiragtest.model.RecipeData
 import kotlinx.android.synthetic.main.item_recepie_layout.view.*
 import java.lang.StringBuilder
 
-class RecipeListAdapter(var recipeList: List<RecipeData>,context: OnClickRecipeItem) :
+class RecipeListAdapter(var recipeList: List<RecipeData>, context: OnClickRecipeInterface) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var onClickRecipe:OnClickRecipeItem?=null
+    private var interfaceRecipeClickHandler: OnClickRecipeInterface? = null
+
     init {
-        onClickRecipe=context
+        interfaceRecipeClickHandler = context
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -27,15 +28,15 @@ class RecipeListAdapter(var recipeList: List<RecipeData>,context: OnClickRecipeI
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val repoModel = recipeList.get(position)
-        setDataOnList(holder, repoModel)
+        setRecipeItemView(holder, repoModel)
     }
 
-    private fun setDataOnList(
+    private fun setRecipeItemView(
         holder: RecyclerView.ViewHolder,
         repoDto: RecipeData?
     ) {
         holder.itemView.setOnClickListener {
-            onClickRecipe?.onClick(repoDto)
+            interfaceRecipeClickHandler?.onClick(repoDto)
         }
         repoDto?.apply {
             thumb.let {
@@ -56,18 +57,18 @@ class RecipeListAdapter(var recipeList: List<RecipeData>,context: OnClickRecipeI
 
             calories?.let {
                 str?.append(it)
-                if(!calories.isNullOrEmpty())
-                str?.append(" |")
+                if (!calories.isNullOrEmpty())
+                    str?.append(" |")
 
             }
             time.let {
-                str?.append(changeTimeFormatIntoTime(it))
+                str?.append(formatTime(it))
             }
             holder.itemView.recipe_highlight.text = str
             isFav.let {
-                if(it){
-                   holder.itemView.favImage.setImageResource(R.drawable.ic_fav_check)
-                }else{
+                if (it) {
+                    holder.itemView.favImage.setImageResource(R.drawable.ic_fav_check)
+                } else {
                     holder.itemView.favImage.setImageResource(R.drawable.ic_like)
 
                 }
@@ -87,12 +88,12 @@ class RecipeListAdapter(var recipeList: List<RecipeData>,context: OnClickRecipeI
         notifyDataSetChanged()
     }
 
-    fun changeTimeFormatIntoTime(time: String?): String {
-        return time?.replace("[^0-9]+".toRegex(), " ")+"Min"
+    private fun formatTime(time: String?): String {
+        return time?.replace("[^0-9]+".toRegex(), " ") + "Min"
     }
 
-    interface OnClickRecipeItem{
-        fun onClick(repoDto:RecipeData?)
+    interface OnClickRecipeInterface {
+        fun onClick(repoDto: RecipeData?)
     }
 
 }

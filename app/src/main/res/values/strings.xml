@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">HelloFreshTest</string>
     <string name="recipes">Recipes</string>
+    <string name="recipes_detail">Recipe Details</string>
+
     <string name="error">Error</string>
     <string name="preparation_time">Preparation time</string>
     <string name="calories">Calories(kCal)</string>

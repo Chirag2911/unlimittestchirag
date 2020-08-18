@@ -11,15 +11,14 @@ import kotlinx.coroutines.*
 
 class RecipeViewModel : ViewModel() {
     val recipeMutableLiveData = MutableLiveData<CallResponseStatus<List<RecipeData>>>()
-    var mainActivityJob :Job?= null
     var repository:Repository?=null
 
     init {
-        mainActivityJob= Job()
         repository= Repository()
     }
 
     fun getRecipeList() {
+        val mainActivityJob= Job()
         val errorHandler = CoroutineExceptionHandler { _, exception ->
             recipeMutableLiveData.value = CallResponseStatus.error(exception)
 
@@ -33,9 +32,7 @@ class RecipeViewModel : ViewModel() {
     }
     fun insertFavData(dataBaseDto: RecipeTable){
         val mainActivityJob= Job()
-
         val errorHandler = CoroutineExceptionHandler { _, exception ->
-
         }
         val coroutineScope = CoroutineScope(mainActivityJob as CompletableJob + Dispatchers.Main)
         coroutineScope.launch(errorHandler) {
@@ -43,11 +40,5 @@ class RecipeViewModel : ViewModel() {
             }
         }
 
-    }
-
-
-    public override fun onCleared() {
-        mainActivityJob?.cancel()
-        super.onCleared()
     }
 }

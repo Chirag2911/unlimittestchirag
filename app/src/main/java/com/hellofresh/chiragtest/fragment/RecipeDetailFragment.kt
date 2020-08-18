@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.hellofresh.chiragtest.LoginActivity
-import com.hellofresh.chiragtest.MainActivity
 import com.hellofresh.chiragtest.R
 import com.hellofresh.chiragtest.database.RecipeTable
 import com.hellofresh.chiragtest.model.RecipeData
@@ -18,10 +17,9 @@ import kotlinx.android.synthetic.main.item_ingridient.view.*
 
 
 class RecipeDetailFragment : Fragment() {
-
     private var recipeData: RecipeData? = null
-    private var isFavBoolean=false
-    private var recipeViewModel: RecipeViewModel?=null
+    private var isFavBoolean = false
+    private var recipeViewModel: RecipeViewModel? = null
 
     companion object {
         val KEY_RECIPE_DATA = "recipe_data"
@@ -31,6 +29,7 @@ class RecipeDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +40,7 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recipeViewModel= ViewModelProviders.of(this).get(RecipeViewModel::class.java)
+        recipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java)
         recipeData = arguments?.get(KEY_RECIPE_DATA) as RecipeData
         recipeData?.let { bindView(recipeData) }
         logout.setOnClickListener {
@@ -55,9 +54,9 @@ class RecipeDetailFragment : Fragment() {
         recipeData?.apply {
             image?.let {
                 Glide.with(recipeImage)
-                        .load(it)
-                        .centerCrop()
-                        .into(recipeImage)
+                    .load(it)
+                    .centerCrop()
+                    .into(recipeImage)
             }
 
             name?.let { txtHeading.text = it }
@@ -82,47 +81,47 @@ class RecipeDetailFragment : Fragment() {
             }
 
             description.let {
-                txtDescription.text=description
+                txtDescription.text = description
             }
 
 
-           ingredientList?.let {
+            ingredientList?.let {
 
-               for (ingredient in ingredientList!!) {
-                   val layoutInflater=LayoutInflater.from(context)
-                   val view =layoutInflater.inflate(R.layout.item_ingridient, null, false)
-                   view.ingredient_name.text = ingredient
-                   ingriedient_list_continer.addView(view)
-               }
-           }
+                for (ingredient in ingredientList!!) {
+                    val layoutInflater = LayoutInflater.from(context)
+                    val view = layoutInflater.inflate(R.layout.item_ingridient, null, false)
+                    view.ingredient_name.text = ingredient
+                    ingriedient_list_continer.addView(view)
+                }
+            }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fav,menu)
-        var item=menu.findItem(R.id.fav_menu)
+        inflater.inflate(R.menu.menu_fav, menu)
+        var item = menu.findItem(R.id.fav_menu)
         recipeData?.apply {
-              if (isFav) {
-                  isFavBoolean=true
-                  item.icon=resources.getDrawable(R.drawable.ic_fav_check)
-          }
+            if (isFav) {
+                isFavBoolean = true
+                item.icon = resources.getDrawable(R.drawable.ic_fav_check)
+            }
         }
 
-        return super.onCreateOptionsMenu(menu,inflater)
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.fav_menu->{
-               if(isFavBoolean){
-                   item.icon=resources.getDrawable(R.drawable.ic_like)
-                   isFavBoolean=false
+        when (item.itemId) {
+            R.id.fav_menu -> {
+                if (isFavBoolean) {
+                    item.icon = resources.getDrawable(R.drawable.ic_like)
+                    isFavBoolean = false
 
-               } else{
-                   item.icon=resources.getDrawable(R.drawable.ic_fav_check)
-                   isFavBoolean=true
-               }
-                recipeData?.id?.let { RecipeTable(it,isFavBoolean) }?.let {
+                } else {
+                    item.icon = resources.getDrawable(R.drawable.ic_fav_check)
+                    isFavBoolean = true
+                }
+                recipeData?.id?.let { RecipeTable(it, isFavBoolean) }?.let {
                     recipeViewModel?.insertFavData(
                         it
                     )
@@ -140,7 +139,6 @@ class RecipeDetailFragment : Fragment() {
         startActivity(intent)
         activity?.finish()
     }
-
 
 
 }

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/color_white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:fillViewport="true"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/main_container"
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -22,7 +23,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/recipeImage"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp200"/>
+                android:layout_height="@dimen/dp200" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtHeading"
@@ -33,7 +34,7 @@
                 android:text="@string/app_name"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/sp18"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtSubHeading"
@@ -41,159 +42,169 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp10"
                 android:layout_marginTop="@dimen/dp10"
-                android:textColor="@color/color_grey"
                 android:text="@string/app_name"
-                android:textSize="@dimen/sp16"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp1"
-            android:layout_marginTop="@dimen/dp5"
-            android:background="@color/color_light_grey"/>
+                android:textColor="@color/color_grey"
+                android:textSize="@dimen/sp16" />
 
-          <androidx.appcompat.widget.LinearLayoutCompat
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-              <androidx.appcompat.widget.LinearLayoutCompat
-                  android:id="@+id/prep_time"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight=".5"
-                  android:visibility="gone"
-                  android:gravity="center"
-                  android:orientation="vertical">
-                  <androidx.appcompat.widget.AppCompatTextView
-                      android:id="@+id/txtMin"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="@dimen/dp10"
-                      android:layout_marginTop="@dimen/dp10"
-                      android:text="@string/app_name"
-                      android:textColor="@color/color_black"
-                      android:textSize="@dimen/sp14"
-                      android:textStyle="bold"/>
-                  <androidx.appcompat.widget.AppCompatTextView
-                      android:id="@+id/txtPrepTime"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="@dimen/dp10"
-                      android:layout_marginTop="@dimen/dp10"
-                      android:text="@string/preparation_time"
-                      android:textColor="@color/color_grey"
-                      android:textSize="@dimen/sp14"
-                      android:textStyle="bold"/>
-              </androidx.appcompat.widget.LinearLayoutCompat>
-              <androidx.appcompat.widget.LinearLayoutCompat
-                  android:id="@+id/calories_container"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:visibility="gone"
-                  android:layout_weight=".5"
-                  android:gravity="center"
-                  android:orientation="vertical">
-                  <androidx.appcompat.widget.AppCompatTextView
-                      android:id="@+id/calories_value"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="@dimen/dp10"
-                      android:layout_marginTop="@dimen/dp10"
-                      android:text="@string/app_name"
-                      android:textColor="@color/color_black"
-                      android:textSize="@dimen/sp14"
-                      android:textStyle="bold"/>
-                  <androidx.appcompat.widget.AppCompatTextView
-                      android:id="@+id/txtcalories"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="@dimen/dp10"
-                      android:layout_marginTop="@dimen/dp10"
-                      android:text="@string/calories"
-                      android:textColor="@color/color_grey"
-                      android:textSize="@dimen/sp14"
-                      android:textStyle="bold"/>
-              </androidx.appcompat.widget.LinearLayoutCompat>
-              <androidx.appcompat.widget.LinearLayoutCompat
-                  android:id="@+id/difficulty_container"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight=".5"
-                  android:visibility="gone"
-                  android:gravity="center"
-                  android:orientation="vertical">
-                  <androidx.appcompat.widget.AppCompatTextView
-                      android:id="@+id/diff_value"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="@dimen/dp10"
-                      android:layout_marginTop="@dimen/dp10"
-                      android:text="@string/level"
-                      android:textColor="@color/color_black"
-                      android:textSize="@dimen/sp14"
-                      android:textStyle="bold"/>
-                  <androidx.appcompat.widget.AppCompatTextView
-                      android:id="@+id/txtDifficulty"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="@dimen/dp10"
-                      android:layout_marginTop="@dimen/dp10"
-                      android:text="@string/difficulty"
-                      android:textColor="@color/color_grey"
-                      android:textSize="@dimen/sp14"
-                      android:textStyle="bold"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp1"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/color_light_grey" />
 
-              </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/prep_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-          </androidx.appcompat.widget.LinearLayoutCompat>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp1"
-            android:layout_marginTop="@dimen/dp5"
-            android:background="@color/color_light_grey"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/app_name"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp10"
-            android:layout_marginTop="@dimen/dp10"
-            android:textColor="@color/color_grey"
-            android:text="@string/ingredient"
-            android:textSize="@dimen/sp16"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtPrepTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/preparation_time"
+                        android:textColor="@color/color_grey"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/calories_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/calories_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/app_name"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtcalories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/calories"
+                        android:textColor="@color/color_grey"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/difficulty_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/diff_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/level"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtDifficulty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:text="@string/difficulty"
+                        android:textColor="@color/color_grey"
+                        android:textSize="@dimen/sp14"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/ingredient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp10"
-            android:layout_marginTop="@dimen/dp10"
-            android:textColor="@color/color_black"
-            android:text="@string/ingredient"
-            android:textSize="@dimen/sp20"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp1"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@color/color_light_grey" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="@string/ingredient"
+                android:textColor="@color/color_grey"
+                android:textSize="@dimen/sp16" />
 
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/ingriedient_list_continer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dp5"
-            android:layout_marginBottom="@dimen/dp10">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/ingredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp10"
+                android:text="@string/ingredient"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/sp20" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ingriedient_list_continer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:orientation="vertical"
+                android:padding="@dimen/dp5">
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_dark_green"
+                android:text="@string/logout"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/sp20" />
+
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_white"
-            android:text="@string/logout"
-            android:textSize="@dimen/sp20"
-            android:background="@color/color_dark_green"
-/>
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
