@@ -1,4 +1,5 @@
 
+
 Kotlin is used for the development
 
 * Network Structure
@@ -8,13 +9,18 @@ Kotlin is used for the development
 * Architecture pattern used:
         MVVM
         LiveData
+        Clean Architecture
 
 * Data Storage:
         Room database
 
+
 * All drawable assets are svg images
 
 
-*Screen in assigment
-       JokesList
+
+*Screens in assigment
+       1-Joke List
+
+
 
