@@ -1,11 +1,11 @@
-package com.hellofresh.chiragtest.database
+package com.unlimit.chiragtest.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(RecipeTable::class), version = 1)
+@Database(entities = arrayOf(JokesTable::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
 
@@ -25,7 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            AppDatabase::class.java, "recipe_database")
+                            AppDatabase::class.java, "joke_database")
                             .build()
                     }
                 return INSTANCE

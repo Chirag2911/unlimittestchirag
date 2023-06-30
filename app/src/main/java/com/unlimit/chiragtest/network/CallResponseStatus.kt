@@ -1,4 +1,4 @@
-package com.hellofresh.chiragtest.network
+package com.unlimit.chiragtest.network
 
 class CallResponseStatus<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

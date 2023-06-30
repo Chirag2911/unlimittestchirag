@@ -1,8 +1,8 @@
-package com.hellofresh.chiragtest.network
+package com.unlimit.chiragtest.network
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.hellofresh.chiragtest.App
+import com.unlimit.chiragtest.App
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

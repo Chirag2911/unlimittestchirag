@@ -1,7 +1,7 @@
-package com.hellofresh.chiragtest.network
+package com.unlimit.chiragtest.network
 
-import com.hellofresh.chiragtest.database.Repository
-import com.hellofresh.chiragtest.model.RecipeData
+import com.unlimit.chiragtest.database.Repository
+import com.unlimit.chiragtest.model.JokesData
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetworkManager {
     private val service: NetworkRequest
     private var repository: Repository? = null
-    private val BASE_URL = "https://raw.githubusercontent.com"
+    private val BASE_URL = "https://geek-jokes.sameerkumar.website"
 
     init {
         val oktHttpClient = OkHttpClient.Builder()
@@ -23,8 +23,11 @@ class NetworkManager {
         repository = Repository()
     }
 
-    suspend fun getRepositories(): List<RecipeData> {
-        return service.retrieveRepositories()
+    suspend fun getJokes(): JokesData{
+        return service.retrieveJokesRepositories()
     }
+
+
+
 
 }

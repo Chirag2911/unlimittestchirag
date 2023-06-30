@@ -1,22 +1,20 @@
-package com.hellofresh.chiragtest
+package com.unlimit.chiragtest
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.hellofresh.chiragtest.fragment.RecipeDetailFragment
-import com.hellofresh.chiragtest.interfaces.LaunchFragmentInterface
-import com.hellofresh.chiragtest.fragment.RecipeListFragment
+import com.unlimit.chiragtest.fragment.JokesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), LaunchFragmentInterface {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        launchFragment(fragment = RecipeListFragment())
+        launchFragment(fragment = JokesFragment())
     }
 
     private fun initView() {
@@ -26,17 +24,14 @@ class MainActivity : AppCompatActivity(), LaunchFragmentInterface {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
-
-
     }
 
-    override fun launchFragment(bundle: Bundle?, fragment: Fragment?) {
+    private fun launchFragment(fragment: Fragment?) {
         val fragment1 = supportFragmentManager.findFragmentByTag(fragment?.javaClass?.simpleName)
-        if(fragment is RecipeDetailFragment){
-            supportActionBar?.title = getString(R.string.recipes_detail)
+        if (fragment is JokesFragment) {
+            supportActionBar?.title = getString(R.string.joke_list)
         }
         if (fragment1 == null) {
-            fragment?.arguments = bundle
             fragment?.let { it1 ->
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, it1, it1.javaClass.simpleName)

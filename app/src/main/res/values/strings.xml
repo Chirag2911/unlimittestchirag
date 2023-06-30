@@ -1,24 +1,7 @@
 <resources>
-    <string name="app_name">HelloFreshTest</string>
-    <string name="recipes">Recipes</string>
-    <string name="recipes_detail">Recipe Details</string>
-
+    <string name="app_name">UnLimitTest</string>
+    <string name="recipes">Jokes</string>
+    <string name="joke_list">Joke List</string>
     <string name="error">Error</string>
-    <string name="preparation_time">Preparation time</string>
-    <string name="calories">Calories(kCal)</string>
-    <string name="difficulty">Difficulty</string>
-    <string name="level">Level %1s</string>
-    <string name="ingredient">Ingredient</string>
-    <string name="min">%1s min</string>
-    <string name="email">Enter email</string>
-    <string name="password">Enter password</string>
-    <string name="login">Login</string>
-    <string name="logout">Logout</string>
-    <string name="email_empty_error">Please enter Email id </string>
-    <string name="pass_empty_error">Please enter Password </string>
-
-    <string name="email_valid_error">Please enter valid email id.</string>
-    <string name="pass_valid_error">Password length should be greater than 4.</string>
-    <string name="please_enter_valid_credentia">Please enter valid credential.</string>
 
 </resources>

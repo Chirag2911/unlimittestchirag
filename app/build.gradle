@@ -10,7 +10,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.hellofresh.chiragtest"
+        applicationId "com.unlimit.chiragtest"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -47,6 +47,7 @@ dependencies {
 
 
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
 
     implementation "androidx.room:room-ktx:$room_version"
@@ -54,6 +55,7 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$room_version"
 
     implementation "androidx.room:room-guava:$room_version"
+
 
 
     testImplementation 'junit:junit:4.13'

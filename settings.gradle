@@ -1,3 +1,3 @@
 include ':lib'
-rootProject.name='HelloFreshTest'
+rootProject.name='UnLimitTest'
 include ':app'
